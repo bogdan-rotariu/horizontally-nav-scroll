@@ -1,8 +1,8 @@
 import { useRef } from 'react'
 import type { NextPage } from 'next'
 import randomColor from 'randomcolor'
-import { Nav } from '../components/nav'
 import { useInViewElement } from '../hooks'
+import { Nav } from '../components'
 import styles from './index.module.scss'
 
 const mockSections = [...Array(10).keys()]
