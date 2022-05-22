@@ -1,0 +1,24 @@
+.nav {
+    align-items: center;
+    box-sizing: border-box;
+    background: white;
+    display: flex;
+    height: 60px;
+    width: max(400px, 50vw);
+    margin: 0 auto;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    li {
+        display: flex;
+        min-width: 25%;
+        justify-content: center;
+    }
+}
+
+.active {
+    color: red;
+}
