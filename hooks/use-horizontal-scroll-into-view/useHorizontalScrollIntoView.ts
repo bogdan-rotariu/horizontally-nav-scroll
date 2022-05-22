@@ -1,19 +1,20 @@
 import { useEffect } from 'react'
 
 interface useHorizontalScrollIntoViewProps {
-    selector: string
+    element: HTMLElement | null
 }
 
 export const useHorizontalScrollIntoView = ({
-    selector,
+    element,
 }: useHorizontalScrollIntoViewProps) => {
     useEffect(() => {
-        const el = document.querySelector(selector)
-        const elRect = el?.getBoundingClientRect()
+        if (!element) return
+
+        const elRect = element?.getBoundingClientRect()
         if (typeof elRect === 'undefined') return
 
         const horizontalHandler = () => {
-            el?.scrollIntoView({
+            element?.scrollIntoView({
                 block: 'nearest',
                 behavior: 'smooth',
             })
@@ -21,5 +22,5 @@ export const useHorizontalScrollIntoView = ({
 
         window.addEventListener('scroll', horizontalHandler)
         return () => window.removeEventListener('scroll', horizontalHandler)
-    }, [selector])
+    }, [element])
 }

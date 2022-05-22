@@ -1,23 +1,15 @@
 import { useEffect, useState } from 'react'
-
-function isInViewport(element: Element) {
-    const rect = element.getBoundingClientRect()
-    return (
-        rect.top >= 0 &&
-        rect.bottom <=
-            (window.innerHeight || document.documentElement.clientHeight)
-    )
-}
-
+import { isInViewport } from '../../utils'
 interface useInViewElementProps {
-    selector: string
+    elements: HTMLElement[]
 }
 
-export const useInViewElement = ({ selector }: useInViewElementProps) => {
+export const useInViewElement = ({ elements }: useInViewElementProps) => {
     const [inView, setInView] = useState<string | null>(null)
 
     useEffect(() => {
-        const elements = Array.from(document.querySelectorAll(`[${selector}]`))
+        if (!elements) return
+
         const handleScroll = () => {
             const someInView = elements.some((el) => isInViewport(el))
             if (!someInView) {
@@ -27,14 +19,14 @@ export const useInViewElement = ({ selector }: useInViewElementProps) => {
 
             elements.forEach((element) => {
                 if (isInViewport(element)) {
-                    setInView(element.getAttribute(selector))
+                    setInView(element.getAttribute('id'))
                 }
             })
         }
 
         window.addEventListener('scroll', handleScroll)
         return () => window.removeEventListener('scroll', handleScroll)
-    }, [selector])
+    }, [elements])
 
     return inView
 }
