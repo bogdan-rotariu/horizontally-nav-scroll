@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import type { NextPage } from 'next'
 import randomColor from 'randomcolor'
-import { Nav } from '../components/nav'
+import { Nav } from '../components'
 import { useInViewElement } from '../hooks'
 import styles from './index.module.scss'
 
