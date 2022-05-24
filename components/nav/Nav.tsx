@@ -1,5 +1,5 @@
-import { useCallback, useState } from 'react'
-import { useHorizontalScrollIntoView } from '../../hooks'
+import { useCallback, useRef, useState } from 'react'
+import { useScrollIntoView } from '../../hooks'
 import styles from './Nav.module.scss'
 
 interface NavProps {
@@ -9,28 +9,26 @@ interface NavProps {
 
 export const Nav = ({ items, inView }: NavProps) => {
     const [inViewListEl, setInViewListEl] = useState<HTMLElement | null>(null)
-    useHorizontalScrollIntoView({ element: inViewListEl })
-
+    useScrollIntoView({ element: inViewListEl })
     const setRefCallback = useCallback(
-        (el: HTMLElement, i: string) => {
-            if (inView === i) {
-                setInViewListEl(el)
-            }
-        },
-        [inView]
+        (el: HTMLElement) => setInViewListEl(el),
+        []
     )
 
     return (
         <ul className={styles.nav}>
-            {items.map((i) => (
-                <li
-                    key={i}
-                    ref={(el) => el && setRefCallback(el, String(i - 1))}
-                    className={inView === String(i) ? styles.active : undefined}
-                >
-                    Section {++i}
-                </li>
-            ))}
+            {items.map((i) => {
+                const isActive = inView === String(i)
+                return (
+                    <li
+                        key={i}
+                        ref={(el) => el && isActive && setRefCallback(el)}
+                        className={isActive ? styles.active : undefined}
+                    >
+                        Section {++i}
+                    </li>
+                )
+            })}
         </ul>
     )
 }
