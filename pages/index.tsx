@@ -5,7 +5,13 @@ import { useInViewElement } from '../hooks'
 import { Nav } from '../components'
 import styles from './index.module.scss'
 
-const mockSections = [...Array(10).keys()]
+const mockSections = [...Array(10).keys()].map((section) => ({
+    id: section,
+    backgroundColor: randomColor({
+        hue: 'red',
+        luminosity: 'light',
+    }),
+}))
 
 const Home: NextPage = () => {
     const sectionsRef = useRef<HTMLElement[]>([])
@@ -25,21 +31,18 @@ const Home: NextPage = () => {
             >
                 Scroll to start
             </div>
-            {mockSections.map((i) => (
+            {mockSections.map(({ id, backgroundColor }) => (
                 <section
-                    ref={(el) => el && (sectionsRef.current[i] = el)}
-                    id={`${i}`}
+                    ref={(el) => el && (sectionsRef.current[id] = el)}
+                    id={`${id}`}
                     className={styles.section}
                     style={{
                         height: '50vh',
-                        backgroundColor: randomColor({
-                            hue: 'red',
-                            luminosity: 'light',
-                        }),
+                        backgroundColor,
                     }}
-                    key={i}
+                    key={id}
                 >
-                    Section {++i}
+                    Section {++id}
                 </section>
             ))}
             <div style={{ height: '100vh' }}></div>

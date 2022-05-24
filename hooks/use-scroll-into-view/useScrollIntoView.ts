@@ -10,10 +10,7 @@ const defaultOptions: ScrollIntoViewOptions = {
     behavior: 'smooth',
 }
 
-export const useScrollIntoView = ({
-    element,
-    options = defaultOptions,
-}: useHorizontalScrollIntoViewProps) => {
+export const useScrollIntoView = ({ element, options = defaultOptions }: useHorizontalScrollIntoViewProps) => {
     useEffect(() => {
         if (!element) return
         const horizontalHandler = () => element?.scrollIntoView(options)
