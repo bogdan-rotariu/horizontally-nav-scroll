@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import type { NextPage } from 'next'
 import randomColor from 'randomcolor'
-import { useInViewElement } from '../hooks'
+import { useInViewElementObserver } from '../hooks'
 import { Nav } from '../components'
 import styles from './index.module.scss'
 
@@ -15,7 +15,7 @@ const mockSections = [...Array(10).keys()].map((section) => ({
 
 const Home: NextPage = () => {
     const sectionsRef = useRef<HTMLElement[]>([])
-    const inView = useInViewElement({ elements: sectionsRef.current })
+    const inView = useInViewElementObserver({ elements: sectionsRef.current, topOffset: 60 })
 
     return (
         <div>
